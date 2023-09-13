@@ -48,4 +48,27 @@ class DirectorsController < ApplicationController
 
     redirect_to "/directors"
   end
+
+  def destroy
+    the_id = params.fetch("path_id")
+    the_director = Director.where({id: the_id})[0]
+
+    the_director.destroy
+
+    redirect_to "/directors"
+  end
+
+  def update
+    the_id = params.fetch("path_id")
+    the_director = Director.where({id: the_id})[0]
+
+    the_director.name = params.fetch("query_name")
+    the_director.dob = params.fetch("query_dob")
+    the_director.bio = params.fetch("query_bio")
+    the_director.image = params.fetch("query_image")
+
+    the_director.save
+
+    redirect_to "/directors/#{the_id}"
+  end
 end
